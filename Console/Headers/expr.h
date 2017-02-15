@@ -25,7 +25,7 @@ namespace fx
 		Expr(Symbol *parent = NULL) :  _parent(parent), _width(0), _height(0), _depth(0) { _node_list = new Node(NULL, NULL, SYMBOL_HEAD); };
 		void sample(void)
 		{
-			_node_list->insert_after(SYMBOL_SUM)->insert_before(SYMBOL_STR, "+666+")->insert_before(SYMBOL_PRODUCT)->symbol()->arg(0)._node_list->insert_after(SYMBOL_DEFINITE);
+			_node_list->insert_after(SYMBOL_SUM)->insert_before(SYMBOL_STR, "+666+")->insert_before(SYMBOL_PRODUCT)->symbol()->arg(3)._node_list->insert_after(SYMBOL_DEFINITE);
 		}
 		~Expr(void);
 		Node *node_list(void) const { return _node_list; }
