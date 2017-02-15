@@ -15,7 +15,7 @@ namespace fx
 	private:
 		Message _msg;
 		Error _error;
-		
+	
 	public:
 		Console(void);
 	};

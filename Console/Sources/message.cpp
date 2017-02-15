@@ -2,8 +2,6 @@
 // Created by Mike Smith on 2017/1/22.
 //
 
-#include <string>
-#include <iostream>
 #include "../Headers/message.h"
 
 namespace fx

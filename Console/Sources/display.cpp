@@ -13,7 +13,7 @@ namespace fx
 	{
 		if (x1 > x2)
 		{
-			swap (x1, x2), swap(y1, y2);
+			swap(x1, x2), swap(y1, y2);
 		}
 		
 		int dx = x2 - x1;
@@ -86,7 +86,7 @@ namespace fx
 	{
 		if (x1 > x2)
 		{
-			swap (x1, x2), swap(y1, y2);
+			swap(x1, x2), swap(y1, y2);
 		}
 		
 		int dx = x2 - x1;
@@ -159,7 +159,7 @@ namespace fx
 	{
 		if (x1 > x2)
 		{
-			swap (x1, x2), swap(y1, y2);
+			swap(x1, x2), swap(y1, y2);
 		}
 		
 		int dx = x2 - x1;

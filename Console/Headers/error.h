@@ -43,7 +43,7 @@ namespace fx
 		ErrorStack _stack;
 		const String last(void);
 		const String info(void);
-		
+	
 	public:
 		Error(Message &msg);
 		void add(ErrorCode error);

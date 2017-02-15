@@ -17,7 +17,7 @@ namespace fx
 		Expr *_curr_expr;
 		Node *_curr_node;
 		int _pos;
-		
+	
 	public:
 		Line *curr_line(void) { return _curr_line; }
 		Expr *curr_expr(void) { return _curr_expr; }

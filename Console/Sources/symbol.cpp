@@ -143,7 +143,7 @@ namespace fx
 		case SYMBOL_STR:
 			_height = FONT_HEIGHT;
 			break;
-			
+		
 		case SYMBOL_SUM:
 			_height = max(_arg_list[3].calc_height() + _arg_list[3].calc_depth() + 5, _arg_list[0].calc_height());
 			break;
