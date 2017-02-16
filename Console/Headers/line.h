@@ -12,10 +12,14 @@ namespace fx
 	class Line
 	{
 	private:
+		int _scroll;
 		Expr *_expr;
 	
 	public:
-		
+		Line(void) : _scroll(0) { _expr = new Expr; }
+		int scroll(void) const { return _scroll; }
+		void set_scroll(int scroll) { _scroll = scroll; }
+		Expr *expr(void) const { return _expr; }
 	};
 }
 

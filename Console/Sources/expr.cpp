@@ -4,7 +4,6 @@
 
 #include "../Headers/expr.h"
 #include "../Headers/misc.h"
-#include "../Headers/font.h"
 
 namespace fx
 {
@@ -71,27 +70,20 @@ namespace fx
 		return _depth;
 	}
 	
+	Expr::Expr(Node *parent) : _width(0), _height(0), _depth(0), _parent(parent)
+	{
+		if (parent == NULL)
+		{
+			_node_list = new Node(NULL);
+		}
+		else
+		{
+			_node_list = new Node(parent->symbol());
+		}
+	}
+	
 	Expr::~Expr(void)
 	{
-		/*
-		Node *curr = _node_list;
-		
-		if (curr != NULL)
-		{
-			Node *next = curr->next();
-			
-			while (next != NULL)
-			{
-				delete curr;
-				curr = next;
-				next = curr->next();
-			}
-			delete curr;
-			_node_list = NULL;
-		}
-		_width = _height = _depth = 0;
-		 */
-		
 		while (_node_list->next() != NULL)
 		{
 			delete _node_list->next();
@@ -101,7 +93,7 @@ namespace fx
 		_width = _height = _depth = 0;
 	}
 	
-	String &Expr::to_str(String &result)
+	String &Expr::to_str(String &result) const
 	{
 		Node *ptr = _node_list->next();
 		String partial_result;
@@ -114,5 +106,10 @@ namespace fx
 		}
 		
 		return result;
+	}
+	
+	void Expr::set_parent(Node *parent)
+	{
+		_parent = parent;
 	}
 }

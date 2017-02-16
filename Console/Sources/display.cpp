@@ -375,8 +375,8 @@ namespace fx
 			draw_point(left + 1, base + d - 2);
 			print_expr(symbol.arg(2), left + 6, base - h + h2);
 			print_expr(symbol.arg(1), left + 6, base + d - d1);
-			print_expr(symbol.arg(0), left + w - 2 * FONT_WIDTH - 1 - w0, base);
-			print_c_str("dx", left + w - 2 * FONT_WIDTH - 1, base - FONT_HEIGHT + 1);
+			print_expr(symbol.arg(0), left + w - 2 * FONT_WIDTH - w0, base);
+			print_c_str("dx", left + w - 2 * FONT_WIDTH, base - FONT_HEIGHT + 1);
 			break;
 		}
 		
@@ -579,6 +579,11 @@ namespace fx
 		
 		if (ptr == NULL)
 		{
+			if (_cursor->status() == CURSOR_EDITING && _cursor->visible() && _cursor->curr_node() == expr.node_list())
+			{
+				draw_cursor(left, base, FONT_HEIGHT, FONT_DEPTH);
+			}
+			
 			draw_line(left + 1, base - FONT_HEIGHT + 1, left + 1, base + FONT_DEPTH - 1);
 			draw_line(left + 1, base - FONT_HEIGHT + 1, left + FONT_WIDTH - 1, base - FONT_HEIGHT + 1);
 			draw_line(left + FONT_WIDTH - 1, base - FONT_HEIGHT + 1, left + FONT_WIDTH - 1, base + FONT_DEPTH - 1);
@@ -586,12 +591,48 @@ namespace fx
 		}
 		else
 		{
+			if (_cursor->status() == CURSOR_EDITING && _cursor->visible() && _cursor->curr_node() == expr.node_list())
+			{
+				draw_cursor(left, base, ptr->symbol()->height(), ptr->symbol()->depth());
+			}
+			
 			while (ptr != NULL)
 			{
+				if (_cursor->status() == CURSOR_EDITING && _cursor->visible() && ptr == _cursor->curr_node())
+				{
+					if (ptr->symbol()->type() == SYMBOL_STR)
+					{
+						draw_cursor(left + x_offset + _cursor->pos() * FONT_WIDTH, base, FONT_HEIGHT, FONT_DEPTH);
+					}
+					else
+					{
+						draw_cursor(left + x_offset + ptr->symbol()->width(), base, ptr->symbol()->height(), ptr->symbol()->depth());
+					}
+				}
+				
 				print_symbol(*(ptr->symbol()), left + x_offset, base);
 				x_offset += ptr->symbol()->width();
 				ptr = ptr->next();
 			}
+		}
+	}
+	
+	void Display::draw_cursor(int left, int base, int height, int depth)
+	{
+		_cursor->set_left(left);
+		_cursor->set_top(base - height + 1);
+		_cursor->set_length(height + depth - 1);
+		fill_area(_cursor->left(), _cursor->top(), _cursor->left() + 1, _cursor->top() + _cursor->length() - 1);
+	}
+	
+	void Display::print_line(const Line &line, int left, int top)
+	{
+		line.expr()->update();
+		print_expr(*line.expr(), left + line.scroll(), top + line.expr()->height() - 1);
+		
+		if (_cursor->status() == CURSOR_SELECTING && _cursor->curr_line() == &line)
+		{
+			reverse_area(left + line.scroll(), top, left + line.scroll() + line.expr()->width() - 1, top + line.expr()->height() + line.expr()->depth() - 1);
 		}
 	}
 }

@@ -15,7 +15,7 @@ void Init(void)
 	glTranslated(-1.0, 1.0, 0);
 	glScaled(2.0 / SCREEN_WIDTH, -2.0 / SCREEN_HEIGHT, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glfwSetWindowSizeLimits(win, SCREEN_WIDTH * scale, SCREEN_HEIGHT * scale,SCREEN_WIDTH * scale, SCREEN_HEIGHT * scale);
+	glfwSetWindowSizeLimits(win, SCREEN_WIDTH * scale, SCREEN_HEIGHT * scale, SCREEN_WIDTH * scale, SCREEN_HEIGHT * scale);
 }
 
 inline void DrawPixel(int x, int y)
@@ -60,42 +60,161 @@ bool Render(void)
 		glfwDestroyWindow(win);
 		return false;
 	}
-	glfwWaitEventsTimeout(0.05);
 	return true;
 }
 
 int main()
 {
-	fx::Display display(vram);
-	fx::String str = "hello, world", p1, p2;
-	
-	str.split(5, p2, p2);
-	
-	std::cout << str.c_str() << std::endl;
-	std::cout << p1.c_str() << std::endl;
-	std::cout << p2.c_str() << std::endl;
+	fx::Line line;
+	fx::Cursor cursor(line);
+	fx::Display display(vram, cursor);
 	
 	Init();
-	//display.draw_line(0, 0, 127, 63);
-	//display.print_char('H', 0, 0);
+	display.clear_all();
+	display.print_line(line, 0, 0);
 	
-	clock_t t0 = clock();
-	fx::Expr expr;
-	
-	expr.sample();
-	expr.update();
-	std::cout << expr.to_str(p1).c_str() << std::endl;
-	//display.draw_line(99, 20, 100, 0);
-	display.print_expr(expr, 1, 12);
-	//display.reverse_area(1, 24 - expr.height() + 1, 1 + expr.width() - 1, 24 + expr.depth());
-	//display.print_str("hello", 94, 8);
-	
-	clock_t t1 = clock();
-	//std::cout << expr.node_list()->next()->symbol()->arg_index(expr.node_list()->next()->symbol()->arg(2)) << std::endl;
-	std::cout << (t1 - t0) / 1000.0 << "ms" << std::endl;
+	int x = 0;
+	int y = 0;
 	
 	while (Render())
-		;
+	{
+		glfwWaitEventsTimeout(1);
+		if (glfwGetKey(win, GLFW_KEY_LEFT))
+		{
+			cursor.move_left();
+		}
+		else if (glfwGetKey(win, GLFW_KEY_RIGHT))
+		{
+			cursor.move_right();
+		}
+		else if (glfwGetKey(win, GLFW_KEY_I))
+		{
+			if (cursor.curr_node()->symbol() == NULL || cursor.curr_node()->symbol()->type() != fx::SYMBOL_STR)
+			{
+				cursor.set_curr_expr(&cursor.curr_node()->insert(fx::SYMBOL_INTEGRAL)->symbol()->arg(0));
+				cursor.set_curr_node(cursor.curr_expr()->node_list());
+				cursor.set_pos(1);
+			}
+			else
+			{
+				if (cursor.pos() < cursor.curr_node()->symbol()->str().size())
+				{
+					fx::String &curr_str = cursor.curr_node()->symbol()->str();
+					cursor.curr_node()->insert(fx::SYMBOL_STR, curr_str.c_str() + cursor.pos());
+					curr_str.remove((size_t)cursor.pos(), curr_str.size());
+				}
+				cursor.set_curr_expr(&cursor.curr_node()->insert(fx::SYMBOL_INTEGRAL)->symbol()->arg(0));
+				cursor.set_curr_node(cursor.curr_expr()->node_list());
+				cursor.set_pos(1);
+			}
+		}
+		else if (glfwGetKey(win, GLFW_KEY_S))
+		{
+			if (cursor.curr_node()->symbol() == NULL || cursor.curr_node()->symbol()->type() != fx::SYMBOL_STR)
+			{
+				cursor.set_curr_expr(&cursor.curr_node()->insert(fx::SYMBOL_SUM)->symbol()->arg(0));
+				cursor.set_curr_node(cursor.curr_expr()->node_list());
+				cursor.set_pos(1);
+			}
+			else
+			{
+				if (cursor.pos() < cursor.curr_node()->symbol()->str().size())
+				{
+					fx::String &curr_str = cursor.curr_node()->symbol()->str();
+					cursor.curr_node()->insert(fx::SYMBOL_STR, curr_str.c_str() + cursor.pos());
+					curr_str.remove((size_t)cursor.pos(), curr_str.size());
+				}
+				cursor.set_curr_expr(&cursor.curr_node()->insert(fx::SYMBOL_SUM)->symbol()->arg(0));
+				cursor.set_curr_node(cursor.curr_expr()->node_list());
+				cursor.set_pos(1);
+			}
+		}
+		else if (glfwGetKey(win, GLFW_KEY_6))
+		{
+			if (cursor.curr_node()->symbol() == NULL || cursor.curr_node()->symbol()->type() != fx::SYMBOL_STR)
+			{
+				cursor.set_curr_expr(&cursor.curr_node()->insert(fx::SYMBOL_POWER)->symbol()->arg(0));
+				cursor.set_curr_node(cursor.curr_expr()->node_list());
+				cursor.set_pos(1);
+			}
+			else
+			{
+				if (cursor.pos() < cursor.curr_node()->symbol()->str().size())
+				{
+					fx::String &curr_str = cursor.curr_node()->symbol()->str();
+					cursor.curr_node()->insert(fx::SYMBOL_STR, curr_str.c_str() + cursor.pos());
+					curr_str.remove((size_t)cursor.pos(), curr_str.size());
+				}
+				cursor.set_curr_expr(&cursor.curr_node()->insert(fx::SYMBOL_POWER)->symbol()->arg(0));
+				cursor.set_curr_node(cursor.curr_expr()->node_list());
+				cursor.set_pos(1);
+			}
+		}
+		else if (glfwGetKey(win, GLFW_KEY_0))
+		{
+			
+		}
+		else if (glfwGetKey(win, '/'))
+		{
+			if (cursor.curr_node()->symbol() == NULL || cursor.curr_node()->symbol()->type() != fx::SYMBOL_STR)
+			{
+				cursor.set_curr_expr(&cursor.curr_node()->insert(fx::SYMBOL_FRAC)->symbol()->arg(0));
+				cursor.set_curr_node(cursor.curr_expr()->node_list());
+				cursor.set_pos(1);
+			}
+			else
+			{
+				if (cursor.pos() < cursor.curr_node()->symbol()->str().size())
+				{
+					fx::String &curr_str = cursor.curr_node()->symbol()->str();
+					cursor.curr_node()->insert(fx::SYMBOL_STR, curr_str.c_str() + cursor.pos());
+					curr_str.remove((size_t)cursor.pos(), curr_str.size());
+				}
+				cursor.set_curr_expr(&cursor.curr_node()->insert(fx::SYMBOL_FRAC)->symbol()->arg(0));
+				cursor.set_curr_node(cursor.curr_expr()->node_list());
+				cursor.set_pos(1);
+			}
+		}
+		
+		display.clear_all();
+		display.print_line(line, x, y);
+		if (cursor.out_of_sight())
+		{
+			if (cursor.left() < 0)
+			{
+				if (cursor.curr_node()->symbol() == NULL)
+				{
+					line.set_scroll(0);
+				}
+				else
+				{
+					line.set_scroll(line.scroll() + 16 - cursor.left());
+					if (line.scroll() > 0)
+					{
+						line.set_scroll(0);
+					}
+				}
+			}
+			
+			if (cursor.left() >= SCREEN_WIDTH - 8)
+			{
+				line.set_scroll(line.scroll() - cursor.left() - 12 + SCREEN_WIDTH);
+			}
+			
+			if (cursor.top() < 0)
+			{
+				y = 0;
+			}
+			else if (cursor.top() + cursor.length() > SCREEN_HEIGHT)
+			{
+				y -= cursor.top() + cursor.length() - SCREEN_HEIGHT;
+			}
+			
+			display.clear_all();
+			display.print_line(line, x, y);
+		}
+		//cursor.flash();
+	}
 	
 	return 0;
 }

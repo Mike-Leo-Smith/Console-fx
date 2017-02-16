@@ -9,6 +9,7 @@
 
 namespace fx
 {
+	class Node;
 	class Expr;
 	
 	enum SymbolType
@@ -41,22 +42,22 @@ namespace fx
 		};
 	
 	public:
-		Symbol(SymbolType type, const char *c_str = "");
+		Symbol(Node *parent_node, SymbolType type, const char *c_str);
 		~Symbol(void);
 		int width(void) const { return _width; }
 		int height(void) const { return _height; }
 		int depth(void) const { return _depth; }
 		SymbolType type(void) const { return _type; }
-		const String &str(void) const { return *_str; }
+		String &str(void) const { return *_str; }
 		Expr *arg_list(void) const { return _arg_list; }
-		const Expr &arg(int index) const;
-		int arg_index(const Expr *arg);
-		int arg_index(const Expr &arg);
-		int arg_count(void);
+		Expr &arg(int index) const;
+		int arg_index(const Expr *arg) const;
+		int arg_index(const Expr &arg) const;
+		int arg_count(void) const;
 		int calc_width(void);
 		int calc_height(void);
 		int calc_depth(void);
-		String &to_str(String &result);
+		String &to_str(String &result) const;
 	};
 }
 

@@ -4,12 +4,11 @@
 
 #include "../Headers/symbol.h"
 #include "../Headers/expr.h"
-#include "../Headers/font.h"
 #include "../Headers/misc.h"
 
 namespace fx
 {
-	Symbol::Symbol(SymbolType type, const char *c_str) : _type(type), _width(0), _height(0), _depth(0)
+	Symbol::Symbol(Node *parent_node, SymbolType type, const char *c_str) : _type(type), _width(0), _height(0), _depth(0)
 	{
 		switch (_type)
 		{
@@ -21,6 +20,8 @@ namespace fx
 		case SYMBOL_INTEGRAL:
 		case SYMBOL_SQRT:
 			_arg_list = new Expr[1];
+			_arg_list[0].set_parent(parent_node);
+			_arg_list[0].node_list()->set_symbol(this);
 			break;
 		
 		case SYMBOL_FRAC:
@@ -28,15 +29,33 @@ namespace fx
 		case SYMBOL_POWER:
 		case SYMBOL_ROOT:
 			_arg_list = new Expr[2];
+			_arg_list[0].set_parent(parent_node);
+			_arg_list[1].set_parent(parent_node);
+			_arg_list[0].node_list()->set_symbol(this);
+			_arg_list[1].node_list()->set_symbol(this);
 			break;
 		
 		case SYMBOL_DEFINITE:
 			_arg_list = new Expr[3];
+			_arg_list[0].set_parent(parent_node);
+			_arg_list[1].set_parent(parent_node);
+			_arg_list[2].set_parent(parent_node);
+			_arg_list[0].node_list()->set_symbol(this);
+			_arg_list[1].node_list()->set_symbol(this);
+			_arg_list[2].node_list()->set_symbol(this);
 			break;
 		
 		case SYMBOL_PRODUCT:
 		case SYMBOL_SUM:
 			_arg_list = new Expr[4];
+			_arg_list[0].set_parent(parent_node);
+			_arg_list[1].set_parent(parent_node);
+			_arg_list[2].set_parent(parent_node);
+			_arg_list[3].set_parent(parent_node);
+			_arg_list[0].node_list()->set_symbol(this);
+			_arg_list[1].node_list()->set_symbol(this);
+			_arg_list[2].node_list()->set_symbol(this);
+			_arg_list[3].node_list()->set_symbol(this);
 			break;
 		
 		case SYMBOL_HEAD:
@@ -226,12 +245,12 @@ namespace fx
 		_width = _height = _depth = 0;
 	}
 	
-	const Expr &Symbol::arg(int index) const
+	Expr &Symbol::arg(int index) const
 	{
 		return _arg_list[index];
 	}
 	
-	String &Symbol::to_str(String &result)
+	String &Symbol::to_str(String &result) const
 	{
 		String partial_result;
 		
@@ -292,7 +311,7 @@ namespace fx
 		return result;
 	}
 	
-	int Symbol::arg_count(void)
+	int Symbol::arg_count(void) const
 	{
 		int count;
 		
@@ -332,12 +351,12 @@ namespace fx
 		return count;
 	}
 	
-	int Symbol::arg_index(const Expr *arg)
+	int Symbol::arg_index(const Expr *arg) const
 	{
 		return (int)(arg - _arg_list);
 	}
 	
-	int Symbol::arg_index(const Expr &arg)
+	int Symbol::arg_index(const Expr &arg) const
 	{
 		return (int)(&arg - _arg_list);
 	}

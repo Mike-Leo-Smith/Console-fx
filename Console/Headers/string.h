@@ -6,8 +6,7 @@
 #define CONSOLE_FX_STRING_H
 
 #include <cstddef>
-
-#define STRING_CAPACITY_BLOCK 8
+#include "config.h"
 
 namespace fx
 {

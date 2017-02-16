@@ -22,21 +22,19 @@ namespace fx
 		int _depth;
 	
 	public:
-		Expr(Node *parent = NULL) : _parent(parent), _width(0), _height(0), _depth(0) { _node_list = new Node(NULL, NULL, SYMBOL_HEAD); };
-		void sample(void)
-		{
-			_node_list->insert_after(SYMBOL_SUM)->insert_before(SYMBOL_STR, "+666+")->insert_before(SYMBOL_PRODUCT)->symbol()->arg(3)._node_list->insert_after(SYMBOL_DEFINITE);
-		}
+		Expr(Node *parent = NULL);
 		~Expr(void);
 		Node *node_list(void) const { return _node_list; }
+		Node *parent(void) const { return _parent; }
 		int width(void) const { return _width; }
 		int height(void) const { return _height; }
 		int depth(void) const { return _depth; }
+		void set_parent(Node *parent);
 		int calc_width(void);
 		int calc_height(void);
 		int calc_depth(void);
 		void update(void) { calc_width(), calc_height(), calc_depth(); }
-		String &to_str(String &result);
+		String &to_str(String &result) const;
 	};
 }
 

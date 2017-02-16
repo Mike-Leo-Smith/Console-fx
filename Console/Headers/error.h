@@ -5,10 +5,9 @@
 #ifndef CONSOLE_FX_ERROR_H
 #define CONSOLE_FX_ERROR_H
 
+#include "config.h"
 #include "string.h"
 #include "message.h"
-
-#define ERROR_STACK_CAPACITY 16
 
 namespace fx
 {
