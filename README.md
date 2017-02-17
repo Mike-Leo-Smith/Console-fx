@@ -9,7 +9,7 @@ project is written in pure C++ without using any other non-standard libs, and is
 
 ### Usage
 The engine is designed as a lib. You need to include it in you own programs, and note that you have to implement some
-platform-specific function like displaying the contents in the VRAM to screen and detecting a key event. A simple test
+platform-specific functions like displaying the contents in the VRAM to screen and detecting a key event. A simple test
 is provided in main.cpp, which is using GLFW for graphics.
 
 More detailed, a program using the engine should be like this:
@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
     unsigned char vram[VRAM_SIZE_BYTE];
 
     // New instance for class Console and a string as the input/output buffer.
-    // Note that all classes, enums, etc. are under the namespace fx.
+    // Note that all classes, enums, etc., are under the namespace fx.
     fx::Console console(vram);
     fx::String buffer;
     
