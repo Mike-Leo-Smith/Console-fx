@@ -5,12 +5,12 @@
 
 ### Description
 Console-fx is a project aimed to make it possible to display mathematical formulas on monochrome screens beautifully. The
-project is written in pure C++ without using any other non-standard libs, and is designed to be built on multi-platforms.
+project is written in pure C++ without using any other non-standard libraries, and is designed to be built on multi-platforms.
 
 ### Usage
 The engine is designed as a lib. You need to include it in you own programs, and note that you have to implement some
-platform-specific functions like displaying the contents in the VRAM to screen and detecting a key event. A simple test
-is provided in main.cpp, which is using GLFW for graphics.
+platform-specific functions like displaying the contents in the VRAM to screen and detecting a key event. A simple example
+is provided in main.cpp, which uses GLFW for graphics and key processing.
 
 More detailed, a program using the engine should be like this:
 ```
