@@ -65,7 +65,8 @@ bool Render(void)
 
 int main()
 {
-	fx::Line line(fx::LINE_OUTPUT, false, 0);
+	fx::Line line(fx::LINE_INPUT, false, 0);
+	line.expr()->update();
 	fx::Cursor cursor(&line);
 	fx::Display display(vram, cursor);
 	
@@ -214,6 +215,7 @@ int main()
 			display.print_line(line, x, y);
 		}
 		//cursor.flash();
+		line.expr()->update();
 	}
 	
 	return 0;
