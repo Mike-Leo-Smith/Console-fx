@@ -193,7 +193,7 @@ namespace fx
 			break;
 		
 		case SYMBOL_INTEGRAL:
-			_depth = _arg_list[0].calc_depth();
+			_depth = _arg_list[0].calc_depth() + 1;
 			break;
 		
 		case SYMBOL_LOG:

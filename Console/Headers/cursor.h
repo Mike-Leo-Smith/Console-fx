@@ -31,7 +31,7 @@ namespace fx
 		bool _visible;
 	
 	public:
-		Cursor(Line &line) : _curr_line(&line), _curr_expr(line.expr()), _curr_node(line.expr()->node_list()), _visible(true), _left(0), _top(0), _length(7), _status(CURSOR_EDITING) {}
+		Cursor(Line *line = NULL) : _curr_line(line), _curr_expr(line->expr()), _curr_node(line->expr()->node_list()), _visible(true), _left(0), _top(0), _length(7), _status(CURSOR_EDITING) {}
 		bool out_of_sight(void) const { return (_left < 0 || _left >= SCREEN_WIDTH - 8 || _top < 0 || _top + _length > SCREEN_HEIGHT); }
 		Line *curr_line(void) const { return _curr_line; }
 		Expr *curr_expr(void) const { return _curr_expr; }
@@ -46,13 +46,11 @@ namespace fx
 		void set_left(int left) { _left = left; }
 		void set_top(int top) { _top = top; }
 		void set_length(int length) { _length = length; }
-		void set_curr_line(Line *line) { _curr_line = line; }
+		void set_curr_line(Line *line);
 		void set_curr_expr(Expr *expr) { _curr_expr = expr; }
 		void set_curr_node(Node *node) { _curr_node = node; }
 		void set_status(CursorStatus status) { _status = status; }
 		void set_pos(int pos) { _pos = pos; }
-		void move_up(void);
-		void move_down(void);
 		void move_left(void);
 		void move_right(void);
 	};

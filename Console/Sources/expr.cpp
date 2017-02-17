@@ -70,7 +70,7 @@ namespace fx
 		return _depth;
 	}
 	
-	Expr::Expr(Node *parent) : _width(0), _height(0), _depth(0), _parent(parent)
+	Expr::Expr(Node *parent) : _width(FONT_WIDTH), _height(FONT_HEIGHT), _depth(FONT_DEPTH), _parent(parent)
 	{
 		if (parent == NULL)
 		{

@@ -7,16 +7,6 @@
 
 namespace fx
 {
-	void Cursor::move_up(void)
-	{
-		
-	}
-	
-	void Cursor::move_down(void)
-	{
-		
-	}
-	
 	void Cursor::move_left(void)
 	{
 		if (_curr_node->symbol() != NULL)  // Not the head node of the main expr of the line.
@@ -192,5 +182,13 @@ namespace fx
 			_curr_node = _curr_expr->node_list();
 			_pos = 1;
 		}
+	}
+	
+	void Cursor::set_curr_line(Line *line)
+	{
+		_curr_line = line;
+		_curr_expr = _curr_line->expr();
+		_curr_node = _curr_expr->node_list();
+		_pos = 1;
 	}
 }

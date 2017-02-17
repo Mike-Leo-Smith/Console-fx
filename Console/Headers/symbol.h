@@ -14,7 +14,7 @@ namespace fx
 	
 	enum SymbolType
 	{
-		SYMBOL_ABS,
+		SYMBOL_ABS = 0xff0000,
 		SYMBOL_DEFINITE,
 		SYMBOL_FRAC,
 		SYMBOL_HEAD,    // Symbol in a head node.

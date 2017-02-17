@@ -65,8 +65,8 @@ bool Render(void)
 
 int main()
 {
-	fx::Line line;
-	fx::Cursor cursor(line);
+	fx::Line line(fx::LINE_OUTPUT, false, 0);
+	fx::Cursor cursor(&line);
 	fx::Display display(vram, cursor);
 	
 	Init();

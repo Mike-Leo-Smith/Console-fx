@@ -627,7 +627,6 @@ namespace fx
 	
 	void Display::print_line(const Line &line, int left, int top)
 	{
-		line.expr()->update();
 		print_expr(*line.expr(), left + line.scroll(), top + line.expr()->height() - 1);
 		
 		if (_cursor->status() == CURSOR_SELECTING && _cursor->curr_line() == &line)
