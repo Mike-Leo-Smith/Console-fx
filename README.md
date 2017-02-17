@@ -20,9 +20,6 @@ More detailed, a program using the engine should be like this:
 #include <iostream>
 #include "Console/Headers/console.h"
 
-// Also the header where graphics and key-processing fuction implementations are placed for the platform you use.
-#include "platform.h"
-
 // Main enterance for the program.
 int main(int argc, char *argv[])
 {
