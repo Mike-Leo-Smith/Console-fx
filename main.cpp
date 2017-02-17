@@ -3,7 +3,7 @@
 #include "Console/Headers/display.h"
 
 GLFWwindow *win;
-const int scale = 3;
+const int scale = 5;
 unsigned char vram[VRAM_SIZE_BYTE];
 
 void Init(void)
