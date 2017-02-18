@@ -3,6 +3,7 @@
 //
 
 #include "../Headers/console.h"
+#include "../../graphics.h"
 
 namespace fx
 {
@@ -68,8 +69,8 @@ namespace fx
 			
 			int keycode = GetKeycode();
 			
-			if ((keycode >= '0' && keycode <= '9') || (keycode >= 'a' && keycode <= 'z') || (keycode >= 'A' && keycode <= 'Z') || keycode == '.' || keycode == '(' || keycode == ')' || keycode == '!'
-			    || keycode == '%' || keycode == '*' || keycode == '+' || keycode == '[' || keycode == ']' || keycode == '{' || keycode == '}' || keycode == '<' || keycode == '>' || keycode == ',')
+			if ((keycode >= '0' && keycode <= '9') || (keycode >= 'a' && keycode <= 'z') || (keycode >= 'A' && keycode <= 'Z') || keycode == '.' || keycode == '(' || keycode == ')' || keycode == '!' || keycode == '-' || keycode == '='
+			    || keycode == '%' || keycode == '/' || keycode == '*' || keycode == '+' || keycode == '[' || keycode == ']' || keycode == '{' || keycode == '}' || keycode == '<' || keycode == '>' || keycode == ',' || keycode == ' ')
 			{
 				char tmp_str[] = {(char)keycode, '\0'};
 				
@@ -168,6 +169,18 @@ namespace fx
 				continue;
 			}
 			
+			if (keycode == CONTROL_AC)
+			{
+				if (_cursor.curr_line()->editable())
+				{
+					_cursor.curr_line()->expr()->clear();
+					_cursor.set_curr_expr(_cursor.curr_line()->expr());
+					_cursor.set_curr_node(_cursor.curr_expr()->node_list());
+					_cursor.set_status(CURSOR_EDITING);
+					_cursor.set_pos(1);
+				}
+			}
+			
 			if (keycode == CONTROL_UP)
 			{
 				int index;
@@ -247,7 +260,7 @@ namespace fx
 					{
 						if (_cursor.curr_line()->expr()->width() > SCREEN_WIDTH)
 						{
-							_cursor.curr_line()->set_scroll(_cursor.curr_line()->scroll() + 8);
+							_cursor.curr_line()->set_scroll(_cursor.curr_line()->scroll() + 16);
 							if (_cursor.curr_line()->scroll() > 0)
 							{
 								_cursor.curr_line()->set_scroll(0);
@@ -277,7 +290,7 @@ namespace fx
 					{
 						if (_cursor.curr_line()->expr()->width() > SCREEN_WIDTH)
 						{
-							_cursor.curr_line()->set_scroll(_cursor.curr_line()->scroll() - 8);
+							_cursor.curr_line()->set_scroll(_cursor.curr_line()->scroll() - 16);
 							if (_cursor.curr_line()->expr()->width() + _cursor.curr_line()->scroll() < SCREEN_WIDTH)
 							{
 								_cursor.curr_line()->set_scroll(SCREEN_WIDTH - _cursor.curr_line()->expr()->width());
@@ -294,7 +307,7 @@ namespace fx
 	{
 		// Line for output.
 		add_line(LINE_OUTPUT, false);
-		_line_queue[_line_end]->expr()->node_list()->insert(SYMBOL_STR, str_output.size() > 0 ? str_output.c_str() : "Done.");
+		_line_queue[_line_end]->expr()->node_list()->insert(SYMBOL_STR, str_output.size() > 0 ? str_output.c_str() : "Done");
 		_line_queue[_line_end]->expr()->update();
 		
 		if (_line_queue[_line_end]->expr()->width() >= SCREEN_WIDTH)
@@ -353,5 +366,6 @@ namespace fx
 				i = 0;
 			}
 		}
+		DisplayVRAM();
 	}
 }

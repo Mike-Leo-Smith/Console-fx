@@ -315,7 +315,10 @@ namespace fx
 	{
 		if (!(code & ~0xff))
 		{
-			draw_bitmap(GetFontBitmap(code), left, top, FONT_WIDTH, FONT_HEIGHT + FONT_DEPTH);
+			if (code != '\n')
+			{
+				draw_bitmap(GetFontBitmap(code), left, top, FONT_WIDTH, FONT_HEIGHT + FONT_DEPTH);
+			}
 		}
 	}
 	
@@ -338,8 +341,8 @@ namespace fx
 		while (*ptr != '\0' && left < SCREEN_WIDTH)
 		{
 			print_char(*ptr, left, top);
-			ptr++;
 			left += FONT_WIDTH;
+			ptr++;
 		}
 	}
 	

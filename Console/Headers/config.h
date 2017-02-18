@@ -5,8 +5,8 @@
 #ifndef CONSOLE_FX_CONFIG_H
 #define CONSOLE_FX_CONFIG_H
 
-#define SCREEN_WIDTH        512
-#define SCREEN_HEIGHT       128
+#define SCREEN_WIDTH        128
+#define SCREEN_HEIGHT       64
 #define SCREEN_WIDTH_BYTE   ((SCREEN_WIDTH + 7) >> 3)
 #define VRAM_SIZE_BYTE      (SCREEN_WIDTH_BYTE * SCREEN_HEIGHT)
 

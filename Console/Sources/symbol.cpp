@@ -197,7 +197,7 @@ namespace fx
 			break;
 		
 		case SYMBOL_LOG:
-			_depth = max(_arg_list[0].calc_height() + _arg_list[1].calc_depth() - 1, _arg_list[1].calc_depth());
+			_depth = max(_arg_list[0].calc_height() + _arg_list[0].calc_depth() - 1, _arg_list[1].calc_depth());
 			break;
 		
 		case SYMBOL_POWER:

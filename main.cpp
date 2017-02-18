@@ -2,6 +2,7 @@
 #include <glfw/glfw3.h>
 #include "Console/Headers/display.h"
 #include "Console/Headers/console.h"
+#include "Eigenmath/Headers/defs.h"
 
 GLFWwindow *win;
 const int scale = 2;
@@ -45,7 +46,7 @@ inline void ClearPixel(int x, int y)
 	glEnd();
 }
 
-void Render(void)
+void DisplayVRAM(void)
 {
 	for (int x = 0; x < SCREEN_WIDTH; x++)
 	{
@@ -63,15 +64,52 @@ void Render(void)
 	}
 }
 
+fx::String io_buffer;
+fx::String calc_buffer;
+
+void printchar(int c)
+{
+	calc_buffer.append((char)c);
+}
+
+void
+printstr(char *s)
+{
+	calc_buffer.append(s);
+}
+
+
 int main()
 {
 	fx::Console console(vram);
-	fx::String buffer;
 	Init();
+	const char *help_str[] =
+			{
+					"F1:  ABS",
+					"F2:  DEF",
+					"F3:  FRA",
+					"F4:  INT",
+					"F5:  LOG",
+					"F6:  POW",
+					"F7:  PRO",
+					"F8:  ROO",
+					"F9:  SQR",
+					"F10: STR",
+					"F11: SUM",
+					NULL
+			};
+	
+	for (int i = 0; help_str[i] != NULL; i++)
+	{
+		std::cout << help_str[i] << "\t";
+	}
+	std::cout << std::endl;
+	
 	while (true)
 	{
-		console.input(buffer);
-		std::cout << buffer.c_str() << std::endl;
-		console.output(buffer);
+		console.input(io_buffer);
+		calc_buffer.clear();
+		run((char *)io_buffer.c_str());
+		console.output(calc_buffer);
 	}
 }

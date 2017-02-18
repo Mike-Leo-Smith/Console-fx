@@ -7,7 +7,7 @@
 
 #include "glfw/glfw3.h"
 
-extern void Render(void);
+extern void DisplayVRAM(void);
 extern GLFWwindow *win;
 
 #endif //CONSOLE_FX_GRAPHICS_H

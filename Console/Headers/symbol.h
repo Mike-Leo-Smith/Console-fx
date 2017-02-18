@@ -14,10 +14,10 @@ namespace fx
 	
 	enum SymbolType
 	{
+		SYMBOL_HEAD = 0xfe0000,    // Symbol in a head node.
 		SYMBOL_ABS = 0xff0000,
 		SYMBOL_DEFINITE,
 		SYMBOL_FRAC,
-		SYMBOL_HEAD,    // Symbol in a head node.
 		SYMBOL_INTEGRAL,
 		SYMBOL_LOG,
 		SYMBOL_POWER,
