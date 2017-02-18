@@ -9,8 +9,8 @@ project is written in pure C++ without using any other non-standard libraries, a
 
 ### Usage
 The engine is designed as a lib. You need to include it in you own programs, and note that you have to implement some
-platform-specific functions like displaying the contents in the VRAM to screen and detecting a key event. A simple example
-is provided in main.cpp, which uses GLFW for graphics and key processing.
+platform-specific functions like displaying the contents in the VRAM to screen and detecting a key event. An example
+is provided in main.cpp, which uses GLFW for graphics and key processing, and integrates Eigenmath as it's calculation kernel.
 
 More detailed, a program using the engine should be like this:
 ```
