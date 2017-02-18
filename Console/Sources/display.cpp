@@ -628,15 +628,15 @@ namespace fx
 		fill_area(_cursor->left(), _cursor->top(), _cursor->left() + 1, _cursor->top() + _cursor->length() - 1);
 	}
 	
-	void Display::print_line(const Line &line, int top)
+	void Display::print_line(const Line &line, int offset)
 	{
-		if (_cursor->curr_line() == &line || line.offset() + top + line.expr()->height() + line.expr()->depth() > 0)
+		if (_cursor->curr_line() == &line || offset + line.bottom() >= 0)
 		{
-			print_expr(*line.expr(), line.scroll(), top + line.expr()->height() - 1);
+			print_expr(*line.expr(), line.scroll(), offset + line.expr()->height() - 1);
 			
 			if (_cursor->status() == CURSOR_SELECTING && _cursor->curr_line() == &line)
 			{
-				reverse_area(line.scroll(), top, line.scroll() + line.expr()->width() - 1, top + line.expr()->height() + line.expr()->depth() - 1);
+				reverse_area(line.scroll(), offset, line.scroll() + line.width() - 1, offset + line.height() - 1);
 			}
 		}
 	}

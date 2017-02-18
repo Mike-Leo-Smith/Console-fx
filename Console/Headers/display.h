@@ -44,7 +44,7 @@ namespace fx
 		void print_c_str(const char *c_str, int left, int top);
 		void print_symbol(const Symbol &symbol, int left, int base);
 		void print_expr(const Expr &expr, int left, int base);
-		void print_line(const Line &line, int top);
+		void print_line(const Line &line, int offset);
 	};
 }
 

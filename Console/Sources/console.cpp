@@ -10,7 +10,7 @@ namespace fx
 	Console::Console(unsigned char *vram) : _line_start(0), _line_end(0), _display(vram, _cursor), _offset(0)
 	{
 		_line_queue[0] = new Line(LINE_INPUT, true, 0);
-		_cursor.set_curr_line(_line_queue[0]);
+		_cursor.goto_line(_line_queue[0]);
 	}
 	
 	Console::~Console(void)
@@ -114,7 +114,7 @@ namespace fx
 						index = LINE_QUEUE_CAPACITY - 1;
 					}
 				}
-				_cursor.set_curr_line(_line_queue[index]);
+				_cursor.goto_line(_line_queue[index]);
 				continue;
 			}
 			
@@ -131,7 +131,7 @@ namespace fx
 						index = 0;
 					}
 				}
-				_cursor.set_curr_line(_line_queue[index]);
+				_cursor.goto_line(_line_queue[index]);
 				continue;
 			}
 			
@@ -166,7 +166,7 @@ namespace fx
 		}
 		
 		// New line for input in the next turn.
-		_cursor.set_curr_line(add_line(LINE_INPUT, true));
+		_cursor.goto_line(add_line(LINE_INPUT, true));
 		_line_queue[_line_end]->update();
 	}
 	

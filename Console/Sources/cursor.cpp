@@ -233,7 +233,7 @@ namespace fx
 		}
 	}
 	
-	void Cursor::set_curr_line(Line *line)
+	void Cursor::goto_line(Line *line)
 	{
 		_curr_line = line;
 		_curr_expr = _curr_line->expr();

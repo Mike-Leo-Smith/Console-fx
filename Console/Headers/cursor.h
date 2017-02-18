@@ -45,7 +45,7 @@ namespace fx
 		void set_left(int left) { _left = left; }
 		void set_top(int top) { _top = top; }
 		void set_length(int length) { _length = length; }
-		void set_curr_line(Line *line);
+		void goto_line(Line *line);
 		void move_left(void);
 		void move_right(void);
 		void insert(SymbolType type, const char *c_str = "");
