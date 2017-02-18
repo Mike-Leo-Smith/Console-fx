@@ -622,10 +622,10 @@ namespace fx
 	
 	void Display::draw_cursor(int left, int base, int height, int depth)
 	{
-		_cursor->set_left(left);
-		_cursor->set_top(base - height + 1);
+		_cursor->set_x(left);
+		_cursor->set_y(base - height + 1);
 		_cursor->set_length(height + depth - 1);
-		fill_area(_cursor->left(), _cursor->top(), _cursor->left() + 1, _cursor->top() + _cursor->length() - 1);
+		fill_area(_cursor->x(), _cursor->y(), _cursor->x() + 1, _cursor->y() + _cursor->length() - 1);
 	}
 	
 	void Display::print_line(const Line &line, int offset)

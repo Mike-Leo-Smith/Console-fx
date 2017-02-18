@@ -30,7 +30,7 @@ static char *input_str, *scan_str, *token_str, *token_buf;
 
 // Returns number of chars scanned and expr on stack.
 
-// Returns zero when nothing left to scan.
+// Returns zero when nothing x to scan.
 
 int
 scan(char *s)
@@ -360,7 +360,7 @@ scan_function_call(void)
 	p = usr_symbol(token_buf);
 	push(p);
 	get_next_token();    // function name
-	get_next_token();    // left paren
+	get_next_token();    // x paren
 	if (token != ')')
 	{
 		scan_stmt();

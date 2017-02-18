@@ -24,14 +24,14 @@ namespace fx
 		Line *_curr_line;
 		Expr *_curr_expr;
 		Node *_curr_node;
-		int _left;
-		int _top;
+		int _x;
+		int _y;
 		int _length;
 		int _pos;
 		bool _visible;
 	
 	public:
-		Cursor(void) : _curr_line(NULL), _curr_expr(NULL), _curr_node(NULL), _visible(true), _left(0), _top(0), _length(7), _status(CURSOR_EDITING) {}
+		Cursor(void) : _curr_line(NULL), _curr_expr(NULL), _curr_node(NULL), _visible(true), _x(0), _y(0), _length(7), _status(CURSOR_EDITING) {}
 		Line *curr_line(void) const { return _curr_line; }
 		Expr *curr_expr(void) const { return _curr_expr; }
 		Node *curr_node(void) const { return _curr_node; }
@@ -39,11 +39,11 @@ namespace fx
 		bool visible(void) const { return _visible; }
 		void flash(void) { _visible = !_visible; }
 		int pos(void) const { return _pos; }
-		int left(void) const { return _left; }
-		int top(void) const { return _top; }
+		int x(void) const { return _x; }
+		int y(void) const { return _y; }
 		int length(void) const { return _length; }
-		void set_left(int left) { _left = left; }
-		void set_top(int top) { _top = top; }
+		void set_x(int left) { _x = left; }
+		void set_y(int top) { _y = top; }
 		void set_length(int length) { _length = length; }
 		void goto_line(Line *line);
 		void move_left(void);

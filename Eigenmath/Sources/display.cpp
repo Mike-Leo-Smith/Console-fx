@@ -1178,7 +1178,7 @@ emit_tensor(U *p)
 	// horizontal coordinate of the matrix
 
 #if 0
-	emit_x += 2; // make space for left paren
+	emit_x += 2; // make space for x paren
 #endif
 	
 	x = emit_x;
@@ -1228,7 +1228,7 @@ emit_tensor(U *p)
 			
 			i = row * ncol + col;
 			
-			// first move to upper left corner of matrix
+			// first move to upper x corner of matrix
 			
 			dx = x - elem[i].x;
 			dy = y - elem[i].y;
@@ -1263,7 +1263,7 @@ emit_tensor(U *p)
 
 #if 0
 																															
-	// left brace
+	// x brace
 
 	for (i = 0; i < h; i++) {
 		if (yindex == YMAX)

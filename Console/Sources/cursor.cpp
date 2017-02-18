@@ -13,9 +13,9 @@ namespace fx
 		{
 			if (_curr_node->symbol() != NULL)  // Not the head node of the main expr of the line.
 			{
-				if (_curr_node->symbol()->type() == SYMBOL_STR && _pos > 1)   // If in a string and can still move to left.
+				if (_curr_node->symbol()->type() == SYMBOL_STR && _pos > 1)   // If in a string and can still move to x.
 				{
-					_pos--; // Move to left directly.
+					_pos--; // Move to x directly.
 				}
 				else if (_curr_node->prev() == NULL)    // Current node is the head node.
 				{
