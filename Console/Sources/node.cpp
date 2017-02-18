@@ -28,7 +28,7 @@ namespace fx
 		}
 	}
 	
-	Node *Node::insert(SymbolType type, const char *c_str)
+	Node *Node::append(SymbolType type, const char *c_str)
 	{
 		Node *new_node = new Node(this, _next, type, c_str);
 		

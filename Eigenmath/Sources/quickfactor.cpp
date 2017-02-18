@@ -49,7 +49,7 @@ quickfactor(void)
 	
 	// stack has n results from factor_number_raw()
 	
-	// on top of that are all the expressions from quickpower()
+	// on offset of that are all the expressions from quickpower()
 	
 	// multiply the quickpower() results
 	

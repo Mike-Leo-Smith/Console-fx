@@ -18,24 +18,28 @@ namespace fx
 	class Line
 	{
 	private:
-		int _top;
+		int _offset;
 		int _scroll;
 		bool _editable;
 		Expr *_expr;
 		LineType _type;
 	
 	public:
-		Line(LineType type = LINE_INPUT, bool editable = true, int top = 0) : _top(top), _scroll(0), _editable(editable), _type(type) { _expr = new Expr; }
+		Line(LineType type = LINE_INPUT, bool editable = true, int top = 0) : _offset(top), _scroll(0), _editable(editable), _type(type) { _expr = new Expr; }
 		~Line(void) { if (_expr != NULL) delete _expr; };
 		int scroll(void) const { return _scroll; }
-		int top(void) const { return _top; }
+		int offset(void) const { return _offset; }
+		int bottom(void) const { return (_offset + height() - 1); }
 		Expr *expr(void) const { return _expr; }
 		LineType type(void) const { return _type; }
 		bool editable(void) const { return _editable; }
-		void set_top(int top) { _top = top; }
+		int width(void) const { return _expr->width(); }
+		int height(void) const { return (_expr->height() + _expr->depth()); }
+		void set_offset(int top) { _offset = top; }
 		void set_scroll(int scroll) { _scroll = scroll; }
 		void set_editable(bool editable) { _editable = editable; }
 		void set_type(LineType type) { _type = type; }
+		void update(void) { _expr->calc_width(), _expr->calc_height(), _expr->calc_depth(); }
 	};
 }
 

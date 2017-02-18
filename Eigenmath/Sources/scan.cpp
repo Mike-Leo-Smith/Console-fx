@@ -432,7 +432,7 @@ error(char *errmsg)
 //
 // This function assembles the stack expressions into a single tensor.
 //
-// For example, at the top level of the expression ((a,b),(c,d)), the vectors
+// For example, at the offset level of the expression ((a,b),(c,d)), the vectors
 // (a,b) and (c,d) would be on the stack.
 
 void

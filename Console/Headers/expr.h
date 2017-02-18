@@ -24,7 +24,8 @@ namespace fx
 	public:
 		Expr(Node *parent = NULL);
 		~Expr(void);
-		Node *node_list(void) const { return _node_list; }
+		Node *last(void) const;
+		Node *head(void) const { return _node_list; }
 		Node *parent(void) const { return _parent; }
 		int width(void) const { return _width; }
 		int height(void) const { return _height; }
@@ -35,7 +36,6 @@ namespace fx
 		int calc_height(void);
 		int calc_depth(void);
 		void clear(void);
-		void update(void) { calc_width(), calc_height(), calc_depth(); }
 		String &to_str(String &result) const;
 	};
 }

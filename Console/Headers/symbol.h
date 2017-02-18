@@ -15,7 +15,7 @@ namespace fx
 	enum SymbolType
 	{
 		SYMBOL_HEAD = 0xfe0000,    // Symbol in a head node.
-		SYMBOL_ABS = 0xff0000,
+		SYMBOL_ABS = 0xff0000,     // Values start from 0xff0000 to avoid mixing with other keycode or ConsoleCode.
 		SYMBOL_DEFINITE,
 		SYMBOL_FRAC,
 		SYMBOL_INTEGRAL,

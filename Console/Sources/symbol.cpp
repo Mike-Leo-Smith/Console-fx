@@ -21,7 +21,7 @@ namespace fx
 		case SYMBOL_SQRT:
 			_arg_list = new Expr[1];
 			_arg_list[0].set_parent(parent_node);
-			_arg_list[0].node_list()->set_symbol(this);
+			_arg_list[0].head()->set_symbol(this);
 			break;
 		
 		case SYMBOL_FRAC:
@@ -31,8 +31,8 @@ namespace fx
 			_arg_list = new Expr[2];
 			_arg_list[0].set_parent(parent_node);
 			_arg_list[1].set_parent(parent_node);
-			_arg_list[0].node_list()->set_symbol(this);
-			_arg_list[1].node_list()->set_symbol(this);
+			_arg_list[0].head()->set_symbol(this);
+			_arg_list[1].head()->set_symbol(this);
 			break;
 		
 		case SYMBOL_DEFINITE:
@@ -40,9 +40,9 @@ namespace fx
 			_arg_list[0].set_parent(parent_node);
 			_arg_list[1].set_parent(parent_node);
 			_arg_list[2].set_parent(parent_node);
-			_arg_list[0].node_list()->set_symbol(this);
-			_arg_list[1].node_list()->set_symbol(this);
-			_arg_list[2].node_list()->set_symbol(this);
+			_arg_list[0].head()->set_symbol(this);
+			_arg_list[1].head()->set_symbol(this);
+			_arg_list[2].head()->set_symbol(this);
 			break;
 		
 		case SYMBOL_PRODUCT:
@@ -52,10 +52,10 @@ namespace fx
 			_arg_list[1].set_parent(parent_node);
 			_arg_list[2].set_parent(parent_node);
 			_arg_list[3].set_parent(parent_node);
-			_arg_list[0].node_list()->set_symbol(this);
-			_arg_list[1].node_list()->set_symbol(this);
-			_arg_list[2].node_list()->set_symbol(this);
-			_arg_list[3].node_list()->set_symbol(this);
+			_arg_list[0].head()->set_symbol(this);
+			_arg_list[1].head()->set_symbol(this);
+			_arg_list[2].head()->set_symbol(this);
+			_arg_list[3].head()->set_symbol(this);
 			break;
 		
 		case SYMBOL_HEAD:

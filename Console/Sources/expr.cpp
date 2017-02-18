@@ -120,4 +120,16 @@ namespace fx
 			delete _node_list->next();
 		}
 	}
+	
+	Node *Expr::last(void) const
+	{
+		Node *ptr = _node_list;
+		
+		while (ptr->next() != NULL)
+		{
+			ptr = ptr->next();
+		}
+		
+		return ptr;
+	}
 }

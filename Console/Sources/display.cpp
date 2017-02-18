@@ -578,11 +578,11 @@ namespace fx
 	void Display::print_expr(const Expr &expr, int left, int base)
 	{
 		int x_offset = 0;
-		Node *ptr = expr.node_list()->next();
+		Node *ptr = expr.head()->next();
 		
 		if (ptr == NULL)
 		{
-			if (_cursor->status() == CURSOR_EDITING && _cursor->visible() && _cursor->curr_node() == expr.node_list())
+			if (_cursor->status() == CURSOR_EDITING && _cursor->visible() && _cursor->curr_node() == expr.head())
 			{
 				draw_cursor(left, base, FONT_HEIGHT, FONT_DEPTH);
 			}
@@ -594,7 +594,7 @@ namespace fx
 		}
 		else
 		{
-			if (_cursor->status() == CURSOR_EDITING && _cursor->visible() && _cursor->curr_node() == expr.node_list())
+			if (_cursor->status() == CURSOR_EDITING && _cursor->visible() && _cursor->curr_node() == expr.head())
 			{
 				draw_cursor(left, base, ptr->symbol()->height(), ptr->symbol()->depth());
 			}
@@ -630,7 +630,7 @@ namespace fx
 	
 	void Display::print_line(const Line &line, int top)
 	{
-		if (_cursor->curr_line() == &line || line.top() + top + line.expr()->height() + line.expr()->depth() > 0)
+		if (_cursor->curr_line() == &line || line.offset() + top + line.expr()->height() + line.expr()->depth() > 0)
 		{
 			print_expr(*line.expr(), line.scroll(), top + line.expr()->height() - 1);
 			
