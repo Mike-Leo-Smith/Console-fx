@@ -31,7 +31,7 @@ namespace fx
 		bool _visible;
 	
 	public:
-		Cursor(Line *line = NULL) : _curr_line(line), _curr_expr(line->expr()), _curr_node(line->expr()->node_list()), _visible(true), _left(0), _top(0), _length(7), _status(CURSOR_EDITING) {}
+		Cursor(void) : _curr_line(NULL), _curr_expr(NULL), _curr_node(NULL), _visible(true), _left(0), _top(0), _length(7), _status(CURSOR_EDITING) {}
 		bool out_of_sight(void) const { return (_left < 0 || _left >= SCREEN_WIDTH - 8 || _top < 0 || _top + _length > SCREEN_HEIGHT); }
 		Line *curr_line(void) const { return _curr_line; }
 		Expr *curr_expr(void) const { return _curr_expr; }

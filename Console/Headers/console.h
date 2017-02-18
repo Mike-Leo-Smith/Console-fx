@@ -22,7 +22,7 @@ namespace fx
 		Line *_line_queue[LINE_QUEUE_CAPACITY];
 		Cursor _cursor;
 		Display _display;
-		int y_offset;
+		int _y_offset;
 		
 		void pop_line(void);
 		Line *add_line(LineType type, bool editable);

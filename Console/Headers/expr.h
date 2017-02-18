@@ -29,10 +29,12 @@ namespace fx
 		int width(void) const { return _width; }
 		int height(void) const { return _height; }
 		int depth(void) const { return _depth; }
+		bool empty(void) const { return (_node_list->next() == NULL); }
 		void set_parent(Node *parent);
 		int calc_width(void);
 		int calc_height(void);
 		int calc_depth(void);
+		void clear(void);
 		void update(void) { calc_width(), calc_height(), calc_depth(); }
 		String &to_str(String &result) const;
 	};

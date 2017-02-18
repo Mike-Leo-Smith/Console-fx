@@ -31,6 +31,7 @@ namespace fx
 		int top(void) const { return _top; }
 		Expr *expr(void) const { return _expr; }
 		LineType type(void) const { return _type; }
+		bool editable(void) const { return _editable; }
 		void set_top(int top) { _top = top; }
 		void set_scroll(int scroll) { _scroll = scroll; }
 		void set_editable(bool editable) { _editable = editable; }

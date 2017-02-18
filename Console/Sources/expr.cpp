@@ -112,4 +112,12 @@ namespace fx
 	{
 		_parent = parent;
 	}
+	
+	void Expr::clear(void)
+	{
+		while (_node_list->next() != NULL)
+		{
+			delete _node_list->next();
+		}
+	}
 }
