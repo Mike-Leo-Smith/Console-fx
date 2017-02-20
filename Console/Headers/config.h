@@ -5,8 +5,8 @@
 #ifndef CONSOLE_FX_CONFIG_H
 #define CONSOLE_FX_CONFIG_H
 
-#define SCREEN_WIDTH        128
-#define SCREEN_HEIGHT       64
+#define SCREEN_WIDTH        512
+#define SCREEN_HEIGHT       256
 #define SCREEN_WIDTH_BYTE   ((SCREEN_WIDTH + 7) >> 3)
 #define VRAM_SIZE_BYTE      (SCREEN_WIDTH_BYTE * SCREEN_HEIGHT)
 
@@ -15,7 +15,7 @@
 #define FONT_DEPTH      4
 #define FONT_SIZE_BYTE  8
 
-#define LINE_QUEUE_CAPACITY     16
+#define LINE_QUEUE_CAPACITY     256
 #define STRING_CAPACITY_BLOCK   8
 
 #endif //CONSOLE_FX_CONFIG_H

@@ -78,7 +78,6 @@ printstr(char *s)
 	calc_buffer.append(s);
 }
 
-
 int main()
 {
 	fx::Console console(vram);
@@ -110,7 +109,10 @@ int main()
 		console.input(io_buffer);
 		calc_buffer.clear();
 		run((char *)io_buffer.c_str());
-		calc_buffer.backspace();
+		if (calc_buffer.c_str()[calc_buffer.size() - 1] == '\n')
+		{
+			calc_buffer.backspace();
+		}
 		console.output(calc_buffer);
 	}
 }

@@ -2,17 +2,17 @@
 
 // size of the symbol table
 
-#define NSYM 500
+#define NSYM 10000
 
 // TOS cannot be arbitrarily large because the OS seg faults on deep recursion.
 // For example, a circular evaluation like x=x+1 can cause a seg fault.
 // At this setting (100,000) the evaluation stack overruns before seg fault.
 
-#define TOS 500
+#define TOS 100000
 
 // up to 100 blocks of 100,000 atoms
 
-#define M 100
+#define M 1000000
 #define N 100
 
 #define MAXPRIMETAB 10000

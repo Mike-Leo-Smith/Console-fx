@@ -42,7 +42,8 @@ namespace fx
 	
 	Line *Console::add_line(LineType type, bool editable)
 	{
-		int offset = _line_queue[_line_end]->bottom() + 1;
+		int gap = 3;
+		int offset = _line_queue[_line_end]->bottom() + 1 + gap;
 		
 		if (_line_end + 1 >= LINE_QUEUE_CAPACITY)
 		{
