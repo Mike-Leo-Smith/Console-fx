@@ -15,7 +15,7 @@
 #define FONT_DEPTH      4
 #define FONT_SIZE_BYTE  8
 
-#define LINE_QUEUE_CAPACITY     256
+#define LINE_QUEUE_CAPACITY     8
 #define STRING_CAPACITY_BLOCK   8
 
 #endif //CONSOLE_FX_CONFIG_H

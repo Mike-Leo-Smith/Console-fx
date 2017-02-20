@@ -15,29 +15,25 @@ namespace fx
 	
 	Console::~Console(void)
 	{
-		while (_line_start != _line_end)
+		while (_line_count--)
 		{
 			pop_line();
 		}
-		_line_count = 0;
 	}
 	
 	void Console::pop_line(void)
 	{
-		if (_line_start != _line_end)
+		delete _line_queue[_line_start];
+		_line_queue[_line_start] = NULL;
+		if (_line_start + 1 >= LINE_QUEUE_CAPACITY)
 		{
-			delete _line_queue[_line_start];
-			_line_queue[_line_start] = NULL;
-			if (_line_start + 1 >= LINE_QUEUE_CAPACITY)
-			{
-				_line_start = 0;
-			}
-			else
-			{
-				_line_start++;
-			}
-			_line_count--;
+			_line_start = 0;
 		}
+		else
+		{
+			_line_start++;
+		}
+		_line_count--;
 	}
 	
 	Line *Console::add_line(LineType type, bool editable)
