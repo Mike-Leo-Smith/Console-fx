@@ -19,6 +19,7 @@ namespace fx
 	private:
 		int _line_start;
 		int _line_end;
+		int _line_count;
 		Line *_line_queue[LINE_QUEUE_CAPACITY];
 		Cursor _cursor;
 		Display _display;

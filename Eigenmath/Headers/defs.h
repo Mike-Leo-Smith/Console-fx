@@ -2,7 +2,20 @@
 
 // size of the symbol table
 
-#define NSYM 1000
+#define NSYM 500
+
+// TOS cannot be arbitrarily large because the OS seg faults on deep recursion.
+// For example, a circular evaluation like x=x+1 can cause a seg fault.
+// At this setting (100,000) the evaluation stack overruns before seg fault.
+
+#define TOS 500
+
+// up to 100 blocks of 100,000 atoms
+
+#define M 100
+#define N 100
+
+#define MAXPRIMETAB 10000
 
 // Symbolic expressions are built by connecting U structs.
 //
@@ -135,8 +148,8 @@ enum
 	ISINTEGER,
 	ISPRIME,
 	LAGUERRE,
-//	LAPLACE,
-			LCM,
+	LAPLACE,
+	LCM,
 	LEADING,
 	LEGENDRE,
 	LOG,
@@ -227,19 +240,6 @@ enum
 
 #define E YYE
 
-// TOS cannot be arbitrarily large because the OS seg faults on deep recursion.
-// For example, a circular evaluation like x=x+1 can cause a seg fault.
-// At this setting (100,000) the evaluation stack overruns before seg fault.
-
-#define TOS 100000
-
-#define BUF 10000
-
-#define MAX_PROGRAM_SIZE 100001
-#define MAXPRIMETAB 10000
-
-#define _USE_MATH_DEFINES // for MS C++
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -320,17 +320,19 @@ struct text_metric
 
 extern int tos;
 extern int expanding;
+/*
 extern int fmt_x;
 extern int fmt_index;
 extern int fmt_level;
+ */
 extern int verbosing;
 extern int primetab[MAXPRIMETAB];
 extern int esc_flag;
 extern int draw_flag;
 extern int mtotal;
 extern int trigmode;
-extern char logbuf[];
-extern char program_buf[];
+//extern char logbuf[];
+//extern char program_buf[];
 extern U symtab[];
 extern U *binding[];
 extern U *arglist[];
@@ -339,7 +341,6 @@ extern U **frame;
 extern U *p0, *p1, *p2, *p3, *p4, *p5, *p6, *p7, *p8, *p9;
 extern U *zero, *one, *imaginaryunit;
 extern U symtab[];
-extern char out_buf[];
 extern int out_count;
 extern int test_flag;
 extern jmp_buf draw_stop_return;

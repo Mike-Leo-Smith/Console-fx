@@ -42,12 +42,7 @@ print_expr(U *p)
 		while (iscons(p))
 		{
 			if (sign_of_term(car(p)) == '+')
-				if (test_flag == 0)
-					print_str(" + ");
-				else
-					print_str("+");
-			else if (test_flag == 0)
-				print_str(" - ");
+				print_str("+");
 			else
 				print_str("-");
 			print_term(car(p));
@@ -151,9 +146,6 @@ print_a_over_b(U *p)
 		}
 	}
 	
-	if (test_flag == 0)
-		print_str(" / ");
-	else
 		print_str("/");
 	
 	if (d > 1)
@@ -259,9 +251,6 @@ print_denom(U *p, int d)
 		return;
 	}
 	
-	if (test_flag == 0)
-		print_str(power_str);
-	else
 		print_char('^');
 	
 	push(EXPO);
@@ -327,10 +316,7 @@ print_factor(U *p)
 		
 		if (isminusone(caddr(p)))
 		{
-			if (test_flag == 0)
-				print_str("1 / ");
-			else
-				print_str("1/");
+			print_str("1/");
 			if (iscons(cadr(p)))
 			{
 				print_str("(");
@@ -356,10 +342,6 @@ print_factor(U *p)
 		}
 		else
 			print_factor(cadr(p));
-		if (test_flag == 0)
-			//print_str(" ^ ");
-			print_str(power_str);
-		else
 			print_str("^");
 		if (iscons(caddr(p)) || isfraction(caddr(p)) || (isnum(caddr(p)) && lessp(caddr(p), zero)))
 		{
@@ -415,9 +397,6 @@ print_factor(U *p)
 			p = cdr(p);
 			while (iscons(p))
 			{
-				if (test_flag == 0)
-					print_str(",");
-				else
 					print_str(",");
 				print_expr(car(p));
 				p = cdr(p);
@@ -495,9 +474,6 @@ print_tensor_inner(U *p, int j, int *k)
 			print_tensor_inner(p, j + 1, k);
 		if (i + 1 < p->u.tensor->dim[j])
 		{
-			if (test_flag == 0)
-				print_str(",");
-			else
 				print_str(",");
 		}
 	}
@@ -529,7 +505,7 @@ print_function_definition(U *p)
 	print_arg_list(cadr(get_binding(p)));
 	print_str("=");
 	print_expr(caddr(get_binding(p)));
-	print_str("\n");
+	//print_str("\n");
 }
 
 void
@@ -554,7 +530,7 @@ void
 print_lisp(U *p)
 {
 	print1(p);
-	print_str("\n");
+	//print_str("\n");
 }
 
 void
@@ -600,9 +576,6 @@ print1(U *p)
 void
 print_multiply_sign(void)
 {
-	if (test_flag == 0)
-		print_str(" ");
-	else
 		print_str("*");
 }
 

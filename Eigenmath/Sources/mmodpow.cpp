@@ -57,8 +57,10 @@ test_mmodpow(void)
 		mfree(xx);
 	}
 	if (mem != mtotal) {
+	/*
 		sprintf(logbuf, "mmodpow memory leak %d %d\n", mem, mtotal);
 		logout(logbuf);
+		*/
 		errout();
 	}
 }

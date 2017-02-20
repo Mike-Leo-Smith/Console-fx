@@ -108,7 +108,7 @@ init(void)
 	std_symbol("isinteger", ISINTEGER);
 	std_symbol("isprime", ISPRIME);
 	std_symbol("laguerre", LAGUERRE);
-//	std_symbol("laplace", LAPLACE);
+	std_symbol("laplace", LAPLACE);
 	std_symbol("lcm", LCM);
 	std_symbol("leading", LEADING);
 	std_symbol("legendre", LEGENDRE);

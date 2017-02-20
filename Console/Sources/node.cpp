@@ -40,4 +40,13 @@ namespace fx
 		
 		return new_node;
 	}
+	
+	Node *Node::find_head(void) const
+	{
+		Node *ptr;
+		
+		for (ptr = (Node *)this; ptr->_prev != NULL; ptr = ptr->prev());
+		
+		return ptr;
+	}
 }

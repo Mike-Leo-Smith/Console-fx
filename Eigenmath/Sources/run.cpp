@@ -12,7 +12,7 @@ stop(char *s)
 	{
 		printstr("Stop: ");
 		printstr(s);
-		printstr("\n");
+		//printstr("\n");
 		longjmp(stop_return, 1);
 	}
 }
@@ -49,10 +49,12 @@ run(char *s)
 		if (equaln(get_binding(symbol(TRACE)), 1))
 		{
 			for (i = 0; i < n; i++)
-				if (s[i] != '\r')
+				if (s[i] != '\r' && s[i] != '\n')
 					printchar(s[i]);
+			/*
 			if (s[n - 1] != '\n') // n is not zero, see above
 				printchar('\n');
+			 */
 		}
 		
 		s += n;
@@ -71,7 +73,7 @@ run(char *s)
 		if (isstr(p2))
 		{
 			printstr(p2->u.str);
-			printstr("\n");
+			//printstr("\n");
 			continue;
 		}
 		
@@ -99,7 +101,7 @@ void
 echo_input(char *s)
 {
 	printstr(s);
-	printstr("\n");
+	//printstr("\n");
 }
 
 // returns nil on stack if no result to print

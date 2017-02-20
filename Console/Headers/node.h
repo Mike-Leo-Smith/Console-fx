@@ -25,6 +25,7 @@ namespace fx
 		Node *next(void) const { return _next; }
 		void set_symbol(Symbol *symbol) { _symbol = symbol; }
 		Node *append(SymbolType type = SYMBOL_STR, const char *c_str = "");
+		Node *find_head(void) const;
 		bool head_of_line(void) const { return (_symbol == NULL); }
 		bool head_of_expr(void) const { return (_prev == NULL); }
 		bool last_of_expr(void) const { return (_next == NULL); }

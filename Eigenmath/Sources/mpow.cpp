@@ -57,8 +57,10 @@ test_mpow(void)
 			b = mpow(a, j);
 			c = mint(x);
 			if (mcmp(b, c) != 0) {
+				/*
 				sprintf(logbuf, "failed a=%d b=%d c=%d\n", a[0], b[0], c[0]);
 				logout(logbuf);
+				*/
 				errout();
 			}
 			mfree(b);

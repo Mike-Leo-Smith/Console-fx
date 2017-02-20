@@ -1,11 +1,6 @@
 
 #include "../Headers/defs.h"
 
-// up to 100 blocks of 100,000 atoms
-
-#define M 100
-#define N 100000
-
 U *mem[M];
 int mcount;
 

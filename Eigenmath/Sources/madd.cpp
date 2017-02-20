@@ -204,8 +204,10 @@ test_maddf(int na, int nb, int nc)
 		return;
 	}
 
+/*
 	sprintf(logbuf, "%d %d %d %d\n", na, nb, nc, *d * MSIGN(d));
 	logout(logbuf);
+	*/
 	errout();
 }
 
@@ -244,8 +246,10 @@ test_msubf(int na, int nb, int nc)
 		return;
 	}
 
+/*
 	sprintf(logbuf, "%d %d %d %d\n", na, nb, nc, *d * MSIGN(d));
 	logout(logbuf);
+	*/
 	errout();
 }
 

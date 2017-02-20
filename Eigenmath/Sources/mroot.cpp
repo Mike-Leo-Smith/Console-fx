@@ -89,8 +89,10 @@ test_mroot(void)
 			b = mpow(a, j);
 			c = mroot(b, j);
 			if (c == 0 || mcmp(a, c) != 0) {
+			/*
 				sprintf(logbuf, "failed a=%d b=%d c=%d\n", a[0], b[0], c[0]);
 				logout(logbuf);
+				*/
 				errout();
 			}
 			mfree(b);

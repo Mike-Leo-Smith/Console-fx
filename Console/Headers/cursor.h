@@ -49,7 +49,7 @@ namespace fx
 		void move_left(void);
 		void move_right(void);
 		void insert(SymbolType type, const char *c_str = "");
-		void all_clear(void);
+		void clear_line(void);
 		void backspace(void);
 	};
 }

@@ -25,8 +25,8 @@ namespace fx
 		LineType _type;
 	
 	public:
-		Line(LineType type = LINE_INPUT, bool editable = true, int top = 0) : _offset(top), _scroll(0), _editable(editable), _type(type) { _expr = new Expr; }
-		~Line(void) { if (_expr != NULL) delete _expr; };
+		Line(LineType type = LINE_INPUT, bool editable = true, int offset = 0) : _offset(offset), _scroll(0), _editable(editable), _type(type) { _expr = new Expr; }
+		~Line(void);
 		int scroll(void) const { return _scroll; }
 		int offset(void) const { return _offset; }
 		int bottom(void) const { return (_offset + height() - 1); }

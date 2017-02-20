@@ -288,7 +288,9 @@ eval_cons(void)
 	case LAGUERRE:
 		eval_laguerre();
 		break;
-//	case LAPLACE:		eval_laplace();		break;
+	case LAPLACE:
+		eval_laplace();
+		break;
 	case LCM:
 		eval_lcm();
 		break;

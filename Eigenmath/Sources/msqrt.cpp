@@ -58,8 +58,10 @@ test_msqrt(void)
 		x = msqrt(n);
 		y = mint((int) (sqrt((double) i) + 1e-10));
 		if (mcmp(x, y) != 0) {
+		/*
 			sprintf(logbuf, "failed for %d got %u\n", i, x[0]);
 			logout(logbuf);
+			*/
 			errout();
 		}
 		mfree(n);

@@ -165,14 +165,18 @@ test_mprime(void)
 		mfree(n);
 		if (i == primetab[k]) {
 			if (t == 0) {
+			/*
 				sprintf(logbuf, "failed for prime number %d\n", i);
 				logout(logbuf);
+				*/
 				errout();
 			}
 			k++;
 		} else if (t == 1) {
+		/*
 			sprintf(logbuf, "failed for composite number %d\n", i);
 			logout(logbuf);
+			*/
 			errout();
 		}
 	}

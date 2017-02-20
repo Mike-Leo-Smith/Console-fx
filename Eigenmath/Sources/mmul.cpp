@@ -476,8 +476,10 @@ test_mmulf(int na, int nb, int nc)
 		return;
 	}
 
+/*
 	sprintf(logbuf, "%d %d %d %d\n", na, nb, nc, *d * MSIGN(d));
 	logout(logbuf);
+	*/
 	errout();
 }
 
@@ -517,8 +519,10 @@ test_mdivf(int na, int nb, int nc)
 		return;
 	}
 
+/*
 	sprintf(logbuf, "%d %d %d %d\n", na, nb, nc, *d * MSIGN(d));
 	logout(logbuf);
+	*/
 	errout();
 }
 
@@ -557,9 +561,10 @@ test_mmodf(int na, int nb, int nc)
 		mfree(d);
 		return;
 	}
-
+/*
 	sprintf(logbuf, "%d %d %d %d\n", na, nb, nc, *d * MSIGN(d));
 	logout(logbuf);
+	*/
 	errout();
 }
 

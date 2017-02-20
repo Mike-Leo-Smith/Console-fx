@@ -11,13 +11,13 @@ namespace fx
 	{
 		if (_status == CURSOR_EDITING)
 		{
-			if (_curr_node->symbol() != NULL)  // Not the head node of the main expr of the line.
+			if (!_curr_node->head_of_line())  // Not the head node of the main expr of the line.
 			{
 				if (_curr_node->symbol()->type() == SYMBOL_STR && _pos > 1)   // If in a string and can still move to x.
 				{
 					_pos--; // Move to x directly.
 				}
-				else if (_curr_node->prev() == NULL)    // Current node is the head node.
+				else if (_curr_node->head_of_expr())    // Current node is the head node.
 				{
 					Symbol *curr_symbol = _curr_expr->parent()->symbol();
 					int curr_arg_index = curr_symbol->arg_index(_curr_expr);     // Calculate the index of the current expr in the arg_list.
@@ -27,8 +27,9 @@ namespace fx
 						Node *ptr;
 						
 						_curr_node = _curr_expr->parent()->prev();
-						for (ptr = _curr_node; ptr->prev() != NULL; ptr = ptr->prev());
-						if (ptr->symbol() == NULL)
+						ptr = _curr_node->find_head();
+						
+						if (ptr->head_of_line())
 						{
 							_curr_expr = _curr_line->expr();
 						}
@@ -45,7 +46,7 @@ namespace fx
 							}
 						}
 						
-						if (_curr_node->prev() == NULL || _curr_node->symbol()->type() != SYMBOL_STR)
+						if (_curr_node->head_of_expr() || _curr_node->symbol()->type() != SYMBOL_STR)
 						{
 							_pos = 1;
 						}
@@ -57,7 +58,7 @@ namespace fx
 					else
 					{
 						_curr_expr = &curr_symbol->arg(curr_arg_index - 1);
-						_curr_node = _curr_expr->head();
+						_curr_node = _curr_expr->last();
 						
 						if (_curr_node->symbol()->type() == SYMBOL_STR)
 						{
@@ -73,7 +74,7 @@ namespace fx
 				{
 					_curr_expr = &_curr_node->symbol()->arg(_curr_node->symbol()->arg_count() - 1);
 					_curr_node = _curr_expr->last();
-					if (_curr_node->prev() == NULL || _curr_node->symbol()->type() != SYMBOL_STR)
+					if (_curr_node->head_of_expr() || _curr_node->symbol()->type() != SYMBOL_STR)
 					{
 						_pos = 1;
 					}
@@ -86,7 +87,7 @@ namespace fx
 				{
 					_curr_node = _curr_node->prev();
 					
-					if (_curr_node->prev() == NULL || _curr_node->symbol()->type() != SYMBOL_STR)
+					if (_curr_node->head_of_expr() || _curr_node->symbol()->type() != SYMBOL_STR)
 					{
 						_pos = 1;
 					}
@@ -101,7 +102,7 @@ namespace fx
 				_curr_expr = _curr_line->expr();
 				_curr_node = _curr_expr->last();
 				
-				if (_curr_node->prev() == NULL || _curr_node->symbol()->type() != SYMBOL_STR)
+				if (_curr_node->head_of_expr() || _curr_node->symbol()->type() != SYMBOL_STR)
 				{
 					_pos = 1;
 				}
@@ -145,11 +146,11 @@ namespace fx
 	{
 		if (_status == CURSOR_EDITING)
 		{
-			if (_curr_node->symbol() != NULL && _curr_node->symbol()->type() == SYMBOL_STR && _pos < _curr_node->symbol()->str().size())
+			if (!_curr_node->head_of_line() && _curr_node->symbol()->type() == SYMBOL_STR && _pos < _curr_node->symbol()->str().size())
 			{
 				_pos++;
 			}
-			else if (_curr_node->next() != NULL)
+			else if (!_curr_node->last_of_expr())
 			{
 				if (_curr_node->next()->symbol()->type() != SYMBOL_STR)
 				{
@@ -163,7 +164,7 @@ namespace fx
 					_pos = 1;
 				}
 			}
-			else if (_curr_expr->parent() != NULL)
+			else if (!_curr_expr->head()->head_of_line())
 			{
 				Symbol *curr_symbol = _curr_expr->parent()->symbol();
 				int curr_arg_index = curr_symbol->arg_index(_curr_expr);
@@ -182,10 +183,10 @@ namespace fx
 					_pos = 1;
 					
 					// Find the head of the node list.
-					for (ptr = _curr_node; ptr->prev() != NULL; ptr = ptr->prev());
+					ptr = _curr_node->find_head();
 					
 					// Test if it's the main expr of the line.
-					if (ptr->symbol() == NULL)
+					if (ptr->head_of_line())
 					{
 						_curr_expr = _curr_line->expr();
 					}
@@ -260,30 +261,42 @@ namespace fx
 					if (_curr_node->last_of_expr() || _curr_node->next()->symbol()->type() != SYMBOL_STR)
 					{
 						_curr_node = _curr_node->append(SYMBOL_STR, c_str);
-						_pos = 1;
+						_pos = (int)_curr_node->symbol()->str().size();
 					}
 					else
 					{
+						int origin_len, insert_len;
+						
+						_curr_node = _curr_node->next();
+						origin_len = (int)_curr_node->symbol()->str().size();
 						_curr_node->symbol()->str().insert(0, c_str);
-						_pos++;
+						insert_len = (int)_curr_node->symbol()->str().size() - origin_len;
+						_pos += insert_len;
 					}
 				}
 				else
 				{
+					int origin_len, insert_len;
+					
 					if (_curr_node->symbol()->type() == SYMBOL_STR)
 					{
+						origin_len = (int)_curr_node->symbol()->str().size();
 						_curr_node->symbol()->str().insert((size_t)pos(), c_str);
-						_pos++;
+						insert_len = (int)_curr_node->symbol()->str().size() - origin_len;
+						_pos += insert_len;
 					}
 					else if (_curr_node->last_of_expr() || _curr_node->next()->symbol()->type() != SYMBOL_STR)
 					{
 						_curr_node = _curr_node->append(SYMBOL_STR, c_str);
-						_pos = 1;
+						_pos = (int)_curr_node->symbol()->str().size();
 					}
 					else
 					{
+						_curr_node = _curr_node->next();
+						origin_len = (int)_curr_node->symbol()->str().size();
 						_curr_node->symbol()->str().insert(0, c_str);
-						_pos = 1;
+						insert_len = (int)_curr_node->symbol()->str().size() - origin_len;
+						_pos += insert_len;
 					}
 				}
 			}
@@ -339,10 +352,69 @@ namespace fx
 	
 	void Cursor::backspace(void)
 	{
-		
+		if (_curr_line->editable())
+		{
+			if (_status == CURSOR_SELECTING)
+			{
+				_curr_line->expr()->clear();
+				_curr_expr = _curr_line->expr();
+				_curr_node = _curr_expr->head();
+			}
+			else
+			{
+				if (_curr_node->head_of_expr())
+				{
+					if (!_curr_node->head_of_line())
+					{
+						Node *parent_node = _curr_expr->parent();
+						int arg_index = parent_node->symbol()->arg_index(_curr_expr);
+						
+						move_left();
+						if (arg_index == 0)
+						{
+							delete parent_node;
+						}
+					}
+				}
+				else
+				{
+					if (_curr_node->symbol()->type() == SYMBOL_STR)
+					{
+						if (_pos > 1)
+						{
+							_pos--;
+							_curr_node->symbol()->str().remove((size_t)_pos, 1);
+						}
+						else
+						{
+							Node *node_to_delete = _curr_node;
+							
+							move_left();
+							delete node_to_delete;
+						}
+					}
+					else
+					{
+						Node *node_to_delete = _curr_node;
+						
+						_curr_node = _curr_node->prev();
+						if (_curr_node->head_of_line() || _curr_node->symbol()->type() != SYMBOL_STR)
+						{
+							_pos = 1;
+						}
+						else
+						{
+							_pos = (int)_curr_node->symbol()->str().size();
+						}
+						
+						delete node_to_delete;
+					}
+				}
+			}
+		}
 	}
 	
-	void Cursor::all_clear(void)
+	void Cursor::clear_line(void)
 	{
 		if (_curr_line->editable())
 		{
