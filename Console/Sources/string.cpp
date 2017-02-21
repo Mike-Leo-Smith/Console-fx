@@ -3,9 +3,7 @@
 //
 
 #include <cstring>
-#include <cstdio>
 #include "../Headers/string.h"
-#include "../Headers/misc.h"
 
 namespace fx
 {
@@ -113,21 +111,10 @@ namespace fx
 		return *this;
 	}
 	
-	// Append the string by duplicating the last char.
-	String &String::append(void)
-	{
-		if (_size > 0)
-		{
-			append(_c_str[_size - 1]);
-		}
-		
-		return *this;
-	}
-	
 	// Append the string by a C-style string.
-	String &String::append(const char *c_str)
+	String &String::append(const char *c_str, size_t str_len)
 	{
-		size_t len = strlen(c_str);
+		size_t len = (str_len == 0) ? strlen(c_str) : str_len;
 		size_t new_size = _size + len;
 		
 		if (new_size >= _capacity)
@@ -218,132 +205,6 @@ namespace fx
 			// Update _size;
 			_size++;
 		}
-		
-		return *this;
-	}
-	
-	// Append the string with an int.
-	String &String::append(int num)
-	{
-		char tmp[30];
-		
-		sprintf(tmp, "%d", num);
-		return append(tmp);
-	}
-	
-	// Append the string with an unsigned int.
-	String &String::append(unsigned int num)
-	{
-		char tmp[30];
-		
-		sprintf(tmp, "%u", num);
-		return append(tmp);
-	}
-	
-	// Append the string with a long int.
-	String &String::append(long num)
-	{
-		char tmp[30];
-		
-		sprintf(tmp, "%ld", num);
-		return append(tmp);
-	}
-	
-	// Append the string with an unsigned long int.
-	String &String::append(unsigned long num)
-	{
-		char tmp[30];
-		
-		sprintf(tmp, "%lu", num);
-		return append(tmp);
-	}
-	
-	// Append the string with a double.
-	String &String::append(double num)
-	{
-		char tmp[30];
-		
-		sprintf(tmp, "%lf", num);
-		return append(tmp);
-	}
-	
-	// Duplicate the string several times. Note that (times == 1) returns the string itself, and (times == 0) means clear the string.
-	String &String::duplicate(int times)
-	{
-		if (times <= 1)
-		{
-			if (times == 0)
-			{
-				clear();
-			}
-		}
-		else
-		{
-			// Calculate new attributes.
-			size_t new_size = _size * times;
-			size_t new_capacity = (new_size / STRING_CAPACITY_BLOCK + 1) * STRING_CAPACITY_BLOCK;
-			
-			if (_capacity < new_capacity)   // No enough space.
-			{
-				// Allocate new space.
-				char *new_c_str = new char[new_capacity];
-				
-				// Copy into new space.
-				for (int i = 0; i < times; i++)
-				{
-					memmove(new_c_str + i * _size, _c_str, _size);
-				}
-				new_c_str[new_size] = '\0';
-				
-				// Free the previously allocated space.
-				delete[] _c_str;
-				
-				// Update attributes.
-				_c_str = new_c_str;
-				_capacity = new_capacity;
-				_size = new_size;
-			}
-			else    // Enough space.
-			{
-				// Copy.
-				for (int i = 1; i < times; i++)
-				{
-					memmove(_c_str + i * _size, _c_str, _size);
-				}
-				_c_str[new_size] = '\0';
-				
-				// Update attributes.
-				_size = new_size;
-			}
-		}
-		
-		return *this;
-	}
-	
-	String &String::operator=(const String &str)
-	{
-		char *new_c_str = new char[str._capacity];
-		
-		memmove(new_c_str, str._c_str, str._size + 1);
-		delete[] _c_str;
-		_c_str = new_c_str;
-		_size = str._size;
-		_capacity = str._capacity;
-		
-		return *this;
-	}
-	
-	String &String::operator=(const char *c_str)
-	{
-		size_t new_size = strlen(c_str);
-		size_t new_capacity = (new_size / STRING_CAPACITY_BLOCK + 1) * STRING_CAPACITY_BLOCK;
-		char *new_c_str = new char[new_capacity];
-		
-		memmove(new_c_str, c_str, new_size + 1);
-		delete[] _c_str;
-		_c_str = new_c_str;
-		_size = new_size;
-		_capacity = new_capacity;
 		
 		return *this;
 	}
@@ -448,16 +309,6 @@ namespace fx
 		return *this;
 	}
 	
-	String &String::reverse(void)
-	{
-		for (size_t i = 0; i < (_size >> 1); i++)
-		{
-			swap(_c_str[i], _c_str[_size - 1 - i]);
-		}
-		
-		return *this;
-	}
-	
 	String &String::remove(size_t pos, size_t len)
 	{
 		if (pos >= _size || len == 0 || _size == 0)
@@ -490,42 +341,6 @@ namespace fx
 			memmove(_c_str + pos, _c_str + pos + len, _size - len - pos + 1);
 			_size = new_size;
 		}
-		
-		return *this;
-	}
-	
-	String &String::split(size_t pos, String &part1, String &part2)
-	{
-		if (&part1 == &part2)
-		{
-			return *this;
-		}
-		
-		if (pos > _size)
-		{
-			pos = _size;
-		}
-		
-		size_t new_size_1 = pos;
-		size_t new_size_2 = _size - pos;
-		size_t new_capacity_1 = (new_size_1 / STRING_CAPACITY_BLOCK + 1) * STRING_CAPACITY_BLOCK;
-		size_t new_capacity_2 = (new_size_2 / STRING_CAPACITY_BLOCK + 1) * STRING_CAPACITY_BLOCK;
-		
-		char *new_c_str_1 = new char[new_capacity_1];
-		char *new_c_str_2 = new char[new_capacity_2];
-		
-		memmove(new_c_str_1, _c_str, new_size_1);
-		new_c_str_1[new_size_1] = '\0';
-		memmove(new_c_str_2, _c_str + pos, new_size_2 + 1);
-		
-		delete[] part1._c_str;
-		delete[] part2._c_str;
-		part1._c_str = new_c_str_1;
-		part2._c_str = new_c_str_2;
-		part1._size = new_size_1;
-		part2._size = new_size_2;
-		part1._capacity = new_capacity_1;
-		part2._capacity = new_capacity_2;
 		
 		return *this;
 	}

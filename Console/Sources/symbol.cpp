@@ -258,12 +258,12 @@ namespace fx
 		switch (_type)
 		{
 		case SYMBOL_ABS:
-			result.append("abs(").append(_arg_list[0].to_str(partial_result)).append(")");
+			result.append("(abs(").append(_arg_list[0].to_str(partial_result)).append("))");
 			break;
 		
 		case SYMBOL_DEFINITE:
-			result.append("defint(").append(_arg_list[0].to_str(partial_result)).append(",x,").append(_arg_list[1].to_str(partial_result)).append(",")
-			      .append(_arg_list[2].to_str(partial_result)).append(")");
+			result.append("(defint(").append(_arg_list[0].to_str(partial_result)).append(",x,").append(_arg_list[1].to_str(partial_result)).append(",")
+			      .append(_arg_list[2].to_str(partial_result)).append("))");
 			break;
 		
 		case SYMBOL_FRAC:
