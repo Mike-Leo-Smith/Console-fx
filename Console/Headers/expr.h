@@ -23,6 +23,7 @@ namespace fx
 	
 	public:
 		Expr(Node *parent = NULL);
+		Expr(const char *c_str, size_t start_pos, size_t end_pos);
 		~Expr(void);
 		Node *last(void) const;
 		Node *head(void) const { return _node_list; }

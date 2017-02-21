@@ -286,9 +286,13 @@ namespace fx
 	void Console::output(const String &str_output)
 	{
 		// Line for output.
+		Expr *output = new Expr(str_output.c_str(), 0, str_output.size() - 1);
+		
 		add_line(LINE_OUTPUT, false);
-		_line_queue[_line_end]->expr()->head()->append(SYMBOL_STR, str_output.size() > 0 ? str_output.c_str() : "Done");
+		//_line_queue[_line_end]->expr()->head()->append(SYMBOL_STR, str_output.size() > 0 ? str_output.c_str() : "Done");
+		_line_queue[_line_end]->expr()->head()->append(output);
 		_line_queue[_line_end]->update();
+		delete output;
 		
 		if (_line_queue[_line_end]->width() >= SCREEN_WIDTH)
 		{

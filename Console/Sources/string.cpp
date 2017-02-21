@@ -123,7 +123,8 @@ namespace fx
 			char *new_c_str = new char[new_capacity];
 			
 			memmove(new_c_str, _c_str, _size);
-			memmove(new_c_str + _size, c_str, len + 1);
+			memmove(new_c_str + _size, c_str, len);
+			new_c_str[new_size] = '\0';
 			delete[] _c_str;
 			_c_str = new_c_str;
 			_size = new_size;
@@ -131,7 +132,8 @@ namespace fx
 		}
 		else
 		{
-			memmove(_c_str + _size, c_str, len + 1);
+			memmove(_c_str + _size, c_str, len);
+			_c_str[new_size] = '\0';
 			_size = new_size;
 		}
 		

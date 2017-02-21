@@ -20,6 +20,8 @@ namespace fx
 		T tmp = a;
 		a = b, b = tmp;
 	}
+	
+	template<typename T> bool is_char(const T &c) { return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9')); }
 }
 
 #endif //CONSOLE_FX_MISC_H
