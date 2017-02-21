@@ -271,7 +271,7 @@ namespace fx
 			break;
 		
 		case SYMBOL_INTEGRAL:
-			result.append("integral(").append(_arg_list[0].to_str(partial_result)).append(")");
+			result.append("(integral(").append(_arg_list[0].to_str(partial_result)).append("))");
 			break;
 		
 		case SYMBOL_LOG:
@@ -283,8 +283,8 @@ namespace fx
 			break;
 		
 		case SYMBOL_PRODUCT:
-			result.append("product(").append(_arg_list[1].to_str(partial_result)).append(",").append(_arg_list[2].to_str(partial_result)).append(",")
-			      .append(_arg_list[3].to_str(partial_result)).append(",").append(_arg_list[0].to_str(partial_result)).append(")");
+			result.append("(product(").append(_arg_list[1].to_str(partial_result)).append(",").append(_arg_list[2].to_str(partial_result)).append(",")
+			      .append(_arg_list[3].to_str(partial_result)).append(",").append(_arg_list[0].to_str(partial_result)).append("))");
 			break;
 		
 		case SYMBOL_ROOT:
@@ -292,16 +292,16 @@ namespace fx
 			break;
 		
 		case SYMBOL_SQRT:
-			result.append("sqrt(").append(_arg_list[0].to_str(partial_result)).append(")");
+			result.append("(sqrt(").append(_arg_list[0].to_str(partial_result)).append("))");
 			break;
 		
 		case SYMBOL_STR:
-			result.append(*_str).append(" ");
+			result.append(*_str);
 			break;
 		
 		case SYMBOL_SUM:
-			result.append("sum(").append(_arg_list[1].to_str(partial_result)).append(",").append(_arg_list[2].to_str(partial_result)).append(",")
-			      .append(_arg_list[3].to_str(partial_result)).append(",").append(_arg_list[0].to_str(partial_result)).append(")");
+			result.append("(sum(").append(_arg_list[1].to_str(partial_result)).append(",").append(_arg_list[2].to_str(partial_result)).append(",")
+			      .append(_arg_list[3].to_str(partial_result)).append(",").append(_arg_list[0].to_str(partial_result)).append("))");
 			break;
 		
 		default:

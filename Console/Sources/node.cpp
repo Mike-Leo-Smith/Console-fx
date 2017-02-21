@@ -3,6 +3,7 @@
 //
 
 #include "../Headers/node.h"
+#include "../Headers/expr.h"
 
 namespace fx
 {
@@ -48,5 +49,37 @@ namespace fx
 		for (ptr = (Node *)this; ptr->_prev != NULL; ptr = ptr->prev());
 		
 		return ptr;
+	}
+	
+	Node *Node::append(const Expr *expr)
+	{
+		Node *ptr;
+		
+		for (ptr = expr->head()->next(); ptr != NULL; ptr = ptr->next())
+		{
+			if (ptr->symbol()->type() == SYMBOL_STR)
+			{
+				append(SYMBOL_STR, ptr->symbol()->str().c_str());
+			}
+			else
+			{
+				int arg_count = ptr->symbol()->arg_count();
+				
+				append(ptr->symbol()->type());
+				for (int i = 0; i < arg_count; i++)
+				{
+					_next->symbol()->arg(i).head()->append(&ptr->symbol()->arg(i));
+				}
+			}
+		}
+		
+		if (_next != NULL)
+		{
+			return _next;
+		}
+		else
+		{
+			return this;
+		}
 	}
 }

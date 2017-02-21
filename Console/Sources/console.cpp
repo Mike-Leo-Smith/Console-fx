@@ -64,7 +64,7 @@ namespace fx
 	{
 		while (true)
 		{
-			_cursor.curr_line()->update();
+			_line_queue[_line_end]->update();
 			render();
 			
 			int keycode = GetKeycode();
@@ -215,6 +215,10 @@ namespace fx
 					_line_queue[_line_end]->set_editable(false);
 					_line_queue[_line_end]->set_scroll(0);
 					return _line_queue[_line_end]->expr()->to_str(str_input);
+				}
+				else
+				{
+					_line_queue[_line_end]->expr()->last()->append(_cursor.curr_line()->expr());
 				}
 				continue;
 			}

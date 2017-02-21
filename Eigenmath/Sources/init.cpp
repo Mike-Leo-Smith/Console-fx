@@ -112,7 +112,7 @@ init(void)
 	std_symbol("lcm", LCM);
 	std_symbol("leading", LEADING);
 	std_symbol("legendre", LEGENDRE);
-	std_symbol("log", LOG);
+	std_symbol("ln", LOG);
 	std_symbol("mag", MAG);
 	std_symbol("mod", MOD);
 	std_symbol("multiply", MULTIPLY);
@@ -225,7 +225,7 @@ static char *defn_str[] = {
 		"cross(u,v)=(u[2]*v[3]-u[3]*v[2],u[3]*v[1]-u[1]*v[3],u[1]*v[2]-u[2]*v[1])",
 		"curl(v)=(d(v[3],y)-d(v[2],z),d(v[1],z)-d(v[3],x),d(v[2],x)-d(v[1],y))",
 		"div(v)=d(v[1],x)+d(v[2],y)+d(v[3],z)",
-		"ln(x)=log(x)",
+		"log(x)=ln(x)/ln(10)",
 };
 
 void
