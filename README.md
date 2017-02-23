@@ -49,7 +49,7 @@ For even more information, the source code is always there. :-)
 ### Shots
 There are some screen shots when I run it on my Mac.
 
-Simple expressions goes well.
+Simple expressions go well.
 ![01](Shots/01.png)
 
 ... and also no problem with complex ones as follows.
