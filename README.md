@@ -58,7 +58,7 @@ Simple expressions go well.
 ## About
 
 ### License
-The program is released under LGPL v3. Include this message in your program if you want to copy any part into your project.
+The program is a free software. You can do anything to it with non-commercial purpose.
 
 ### Contact
 Email: mango@live.cn
