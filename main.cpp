@@ -108,6 +108,7 @@ int main()
 	{
 		console.input(io_buffer);
 		calc_buffer.clear();
+                printf("io_buffer.c_str() = %s\n", io_buffer.c_str());
 		run((char *)io_buffer.c_str());
 		if (calc_buffer.c_str()[calc_buffer.size() - 1] == '\n')
 		{
